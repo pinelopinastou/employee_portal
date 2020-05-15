@@ -99,9 +99,8 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <h1 class="h3 mb-2 text-gray-800">Welcome!</h1>
-          <p class="mb-4">Please press create a request in order to send a request to your manager</p>
 
-          <a href="#" class="btn btn-primary btn-icon-split">
+          <a href="request.php" class="btn btn-primary btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-plus"></i>
             </span>
