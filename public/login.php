@@ -1,3 +1,5 @@
+<?php require_once "../src/login.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,16 +41,18 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user">
-                    <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                  <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                      <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." value="<?php echo $email; ?>">
+                      <span class="help-block"><?php echo $email_err; ?></span>
                     </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                    <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                      <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <span class="help-block"><?php echo $password_err; ?></span>
                     </div>
-                    <a href="home.php" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+                     <div class="form-group">
+                      <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
+                    </div>
                     <hr>
                   </form>
                   <hr>

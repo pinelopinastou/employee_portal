@@ -17,7 +17,7 @@
           <div class="row">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Create new user</h1>
+                <h1 class="h4 text-gray-900 mb-4">Edit User</h1>
               </div>
               <form class="user">
                 <div class="form-group">
@@ -48,7 +48,7 @@
                     </select> 
                 </div>
                 <a href="../home.php" class="btn btn-primary btn-user btn-block">
-                  Create
+                  Update
                 </a>
                 <hr>
               </form>
@@ -60,6 +60,7 @@
 
       </div>
       <!-- End of Main Content -->
+
       <?php require_once "footer.php"; ?>
 
 </body>

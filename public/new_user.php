@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once "head.php"; ?>
+<?php require_once "../head.php"; ?>
 <body id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
-    <?php require_once "sidebar.php"; ?>
+    <?php require_once "../sidebar.php"; ?>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
-        <?php require_once "topbar.php"; ?>
+        <?php require_once "../topbar.php"; ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -60,6 +60,7 @@
 
       </div>
       <!-- End of Main Content -->
+
       <?php require_once "footer.php"; ?>
 
 </body>
