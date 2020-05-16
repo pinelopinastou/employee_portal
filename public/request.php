@@ -17,38 +17,23 @@
           <div class="row">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Create new user</h1>
+                <h1 class="h4 text-gray-900 mb-4">Submit request</h1>
               </div>
               <form class="user">
                 <div class="form-group">
-                  <label for="email"> First Name </label>
-                  <input type="email" class="form-control">
+                  <label for="email"> Date from </label>
+                  <input type="date" id="date_from" name="date_from">
                 </div>
                 <div class="form-group">
-                  <label for="email"> Last Name </label>
-                  <input type="email" class="form-control">
+                  <label for="email"> Date to </label>
+                  <input type="date" id="date_to" name="date_to">
                 </div>
                 <div class="form-group">
-                  <label for="email"> Email </label>
-                  <input type="email" class="form-control">
+                  <label for="email"> Reason </label>
+                  <input type="text" class="form-control" name="reason">
                 </div>
-                <div class="form-group">
-                  <label for="password"> Password </label>
-                  <input type="password" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="confirm-password"> Confirm Password </label>
-                  <input type="password" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="type"> User Type </label>
-                   <select id="user_types" name="type" class="form-control">
-                      <option value="admin">Admin</option>
-                      <option value="employee">Employee</option>
-                    </select> 
-                </div>
-                <a href="../home.php" class="btn btn-primary btn-user btn-block">
-                  Create
+                <a href="home.php" class="btn btn-primary btn-user btn-block">
+                  Submit
                 </a>
                 <hr>
               </form>
@@ -61,7 +46,7 @@
       </div>
       <!-- End of Main Content -->
       <?php require_once "footer.php"; ?>
-
+      <script src="js/date_input.js"></script>
 </body>
 
 </html>

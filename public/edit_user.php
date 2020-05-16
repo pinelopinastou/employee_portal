@@ -17,7 +17,7 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Edit user</h1>
               </div>
-              <form class="user"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="patch">
+              <form class="user" method="post">
                 <div class="form-group <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">
                   <label for="first_name">First Name </label>
                   <input name="first_name" class="form-control" value="<?php echo $first_name; ?>">
