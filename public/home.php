@@ -1,3 +1,4 @@
+<?php require_once "../src/request_helper.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once "head.php"; ?>
@@ -33,12 +34,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>No</th>
                       <th>Date Submitted</th>
                       <th>Dates Requested</th>
                       <th>Days Requested</th>
                       <th>Status</th>
                     </tr>
+                    <?php requests_list()?>
                   </thead>
                   <tfoot>
                     

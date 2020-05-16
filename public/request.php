@@ -1,3 +1,4 @@
+<?php require_once "../src/request_sender.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once "head.php"; ?>
@@ -19,7 +20,7 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Submit request</h1>
               </div>
-              <form class="user">
+              <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-group">
                   <label for="email"> Date from </label>
                   <input type="date" id="date_from" name="date_from">
@@ -30,11 +31,13 @@
                 </div>
                 <div class="form-group">
                   <label for="email"> Reason </label>
-                  <input type="text" class="form-control" name="reason">
+                  <input type="text" class="form-control" name="reason" value="<?php echo $reason;?>">
+                  <span class="help-block"><?php echo $reason_err; ?></span>
                 </div>
-                <a href="home.php" class="btn btn-primary btn-user btn-block">
-                  Submit
-                </a>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary btn-user btn-block" value="Submit">
+                </div>
+                <hr>
                 <hr>
               </form>
               <hr>
