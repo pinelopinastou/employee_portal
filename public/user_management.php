@@ -1,3 +1,4 @@
+<?php require_once "../src/user_helper.php"?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once "head.php"; ?>
@@ -16,7 +17,7 @@
         <div class="container-fluid">
           <h1 class="h3 mb-2 text-gray-800">User Management Console</h1>
 
-          <a href="user\new.php" class="btn btn-primary btn-icon-split">
+          <a href="new_user.php" class="btn btn-primary btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-plus"></i>
             </span>
@@ -33,11 +34,13 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>ID<th>
-                      <th>Name</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
                       <th>Email</th>
                       <th>Type</th>
+                      <th>Edit</th>
                     </tr>
+                    <?php user_list()?>
                   </thead>
                   <tfoot>
                     
