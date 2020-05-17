@@ -1,9 +1,8 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "../config/config.php";
  
 // Define variables and initialize with empty values
-session_start();
 $date_from = $date_to = $reason = "";
 $reason_err = "";
  
@@ -23,20 +22,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an insert statement
         $sql = "INSERT INTO requests (date_from, date_to,reason,user_id) VALUES (?, ?, ?, ?)";
          
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssss", $param_date_from, $param_date_to,$param_reason, $param_user_id);
+            $stmt->bind_param("ssss", $param_date_from, $param_date_to,$param_reason, $param_user_id);
             
             // Set parameters
             $param_date_from = $date_from;
             $param_date_to = $date_to;
             $param_reason = $reason;
+            session_start();
             $param_user_id = $_SESSION['id'];
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if($stmt->execute()){
                 // Redirect to login page
-                $request_id = mysqli_insert_id($link);
+                //$request_id = $conn->insert_id();
                 //sendMail($date_from,$date_to,$_SESSION['name'],$request_id);
                 header("location: home.php");
             } else{
@@ -44,12 +44,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            $stmt->close();
         }
     }
     
     // Close connection
-    mysqli_close($link);
+    $conn->close();
  }
 
     function sendMail($date_from, $date_to, $user,$request_id){

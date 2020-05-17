@@ -9,7 +9,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
  
 // Include config file
-require_once "config.php";
+require_once "../config/config.php";
  
 // Define variables and initialize with empty values
 $email = $password = "";
@@ -37,23 +37,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id, first_name, last_name, email, password FROM users WHERE email = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_email);
+            $stmt->bind_param("s", $param_email);
             
             // Set parameters
             $param_email = $email;
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if($stmt->execute()){
                 // Store result
-                mysqli_stmt_store_result($stmt);
+                $stmt->store_result();
                 
                 // Check if email exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                if($stmt->num_rows() == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $first_name, $last_name, $email, $hashed_password);
-                    if(mysqli_stmt_fetch($stmt)){
+                    $stmt->bind_result($id, $first_name, $last_name, $email, $hashed_password);
+                    if($stmt->fetch()){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
@@ -79,11 +79,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            $stmt->close();
         }
     }
     
     // Close connection
-    mysqli_close($link);
+    $conn->close();
 }
 ?>

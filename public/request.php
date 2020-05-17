@@ -1,17 +1,17 @@
-<?php require_once "../src/request_sender.php" ?>
+<?php require_once "../src/services/request_sender.php" ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once "head.php"; ?>
+<?php require_once "../src/views/head.php"; ?>
 <body id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
-    <?php require_once "sidebar.php"; ?>
+    <?php require_once "../src/views/sidebar.php"; ?>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
-        <?php require_once "topbar.php"; ?>
+        <?php require_once "../src/views/topbar.php"; ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -48,7 +48,7 @@
 
       </div>
       <!-- End of Main Content -->
-      <?php require_once "footer.php"; ?>
+      <?php require_once "../src/views/footer.php"; ?>
       <script src="js/date_input.js"></script>
 </body>
 

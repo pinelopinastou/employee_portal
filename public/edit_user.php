@@ -1,11 +1,11 @@
-<?php require_once "../src/user_updater.php" ?>
+<?php require_once "../src/services/user_updater.php" ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once "head.php"; ?>
+<?php require_once "../src/views/head.php"; ?>
 <body id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
-    <?php require_once "sidebar.php"; ?>
+    <?php require_once "../src/views/sidebar.php"; ?>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -64,7 +64,7 @@
       </div>
       <!-- End of Main Content -->
 
-      <?php require_once "footer.php"; ?>
+      <?php require_once "../src/views/footer.php"; ?>
 
 </body>
 
