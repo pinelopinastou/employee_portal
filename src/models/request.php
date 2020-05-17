@@ -3,7 +3,13 @@ require_once "../config/config.php";
 
 class Request
 {
-	
+    static function get_current_user_requests(){
+      global $conn;
+      $id = $_SESSION['id'];
+      $sql = "SELECT * FROM requests where user_id=$id";
+      $results = $conn->query($sql);
+      return $results;
+    }
 
     static function get($id)
     {

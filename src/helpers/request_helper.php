@@ -1,11 +1,12 @@
 <?php
 // Include config file
 require_once "../config/config.php";
+require_once "../src/models/request.php";
 
 class RequestHelper{
 
   static function requests_list() {
-    $user_requests = self::get_request_records();
+    $user_requests = Request::get_current_user_requests();
      while($row = $user_requests->fetch_array()){ 
       $date_from = new DateTime($row['date_from']);
       $date_to = new DateTime($row['date_to']);
@@ -14,12 +15,5 @@ class RequestHelper{
     }
   }
 
-  private function get_request_records(){
-    global $conn;
-    $id = $_SESSION['id'];
-    $sql = "SELECT * FROM requests where user_id=$id";
-    $results = $conn->query($sql);
-    return $results;
-  }
 }
 ?>
