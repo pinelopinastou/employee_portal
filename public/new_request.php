@@ -1,4 +1,10 @@
-<?php require_once "../src/services/request_sender.php" ?>
+<?php require "../src/controllers/requests_controller.php";
+RequestsController::new();
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   echo "BOO";
+   RequestsController::create();
+ } ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once "../src/views/head.php"; ?>
