@@ -23,6 +23,8 @@ class RequestsController{
       	session_start();
         $success = Request::insert($this->date_from,$this->date_to,$this->reason,$_SESSION['id']);
         if ($success){
+          //get the variables, this needs research
+          //send_request_for_approval_to($supervisor->email,$name,$date_from,$date_to,$reason,$approve_link,$reject_link)
           header("location: home.php");
         }
         else{
@@ -35,6 +37,7 @@ class RequestsController{
       $success = Request::set_status($_GET['request_id'],"approved");
       if ($success){
       	echo "The request has been approved, redirecting...";
+        //send_request_response($email,$status,$created_at);
         header("location: user_management.php");
       }
       else{
@@ -46,6 +49,7 @@ class RequestsController{
 	  $success = Request::set_status($_GET['request_id'],"rejected");
       if ($success){
       	echo "The request has been rejected, redirecting...";
+        //send_request_response($email,$status,$created_at);
         header("location: user_management.php");
       }
       else{
