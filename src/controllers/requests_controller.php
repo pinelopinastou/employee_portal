@@ -1,27 +1,27 @@
 <?php require_once "../src/models/request.php";
-require_once "../src/services/validator.php";
 
 class RequestsController{
+
+  public $date_from, $date_to, $reason, $reason_err;
     //to-do add index with authorization method
-	static function new(){
-	   global $date_from, $date_to, $reason, $reason_err;
-	   $date_from = $date_to = $reason = "";
-       $reason_err = "";
+	function new(){
+	   $this->date_from = $this->date_to = $this->reason = "";
+       $this->reason_err = "";
 	}
 
-    static function create(){
-      $date_from = trim($_POST["date_from"]);
-      $date_to = trim($_POST["date_to"]);
+    function create(){
+      $this->date_from = trim($_POST["date_from"]);
+      $this->date_to = trim($_POST["date_to"]);
 
       if(empty(trim($_POST["reason"]))){
-        $reason_err = "Please enter a reason.";
+        $this->reason_err = "Please enter a reason.";
       } else {
-        $reason = trim($_POST["reason"]);
+        $this->reason = trim($_POST["reason"]);
       }
 
       if(empty($reason_err)){
       	session_start();
-        $success = Request::insert($date_from,$date_to,$reason,$_SESSION['id']);
+        $success = Request::insert($this->date_from,$this->date_to,$this->reason,$_SESSION['id']);
         if ($success){
           header("location: home.php");
         }
@@ -31,7 +31,7 @@ class RequestsController{
       }
     }
 
-	static function approve(){
+	function approve(){
       $success = Request::set_status($_GET['request_id'],"approved");
       if ($success){
       	echo "The request has been approved, redirecting...";
@@ -42,7 +42,7 @@ class RequestsController{
       }
     }
 
-	static function reject(){
+	function reject(){
 	  $success = Request::set_status($_GET['request_id'],"rejected");
       if ($success){
       	echo "The request has been rejected, redirecting...";

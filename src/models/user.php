@@ -11,6 +11,14 @@ class User
         return $results->fetch_assoc();
     }
 
+    static function get_by_email($email)
+    {
+        global $conn; 
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $results = $conn->query($sql);
+        return $results->fetch_assoc() ;
+    }
+
     static function get_all_users()
     {
         global $conn; 

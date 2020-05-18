@@ -17,7 +17,7 @@
         <div class="container-fluid">
           <h1 class="h3 mb-2 text-gray-800">Welcome!</h1>
 
-          <a href="request.php" class="btn btn-primary btn-icon-split">
+          <a href="new_request.php" class="btn btn-primary btn-icon-split">
             <span class="icon text-white-50">
               <i class="fas fa-plus"></i>
             </span>

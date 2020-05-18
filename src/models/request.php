@@ -7,7 +7,7 @@ class Request
       global $conn;
       $id = $_SESSION['id'];
       $sql = "SELECT * FROM requests where user_id=$id";
-      $results = $conn->query($sql);
+      $results = $conn->query($sql) or die($conn->error);
       return $results;
     }
 
@@ -55,7 +55,7 @@ class Request
             $param_user_id = $user_id;
             
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if($stmt->execute() or die($conn->error)){
               $success = true;
             } else{
               $success = false;

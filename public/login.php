@@ -1,4 +1,9 @@
-<?php require_once "../src/services/login.php"; ?>
+<?php require "../src/controllers/sessions_controller.php";
+$sessions_controller = new SessionsController();
+$sessions_controller->new();
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   $sessions_controller->create();
+ } ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,13 +47,13 @@
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
                   <form class="user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                    <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-                      <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." value="<?php echo $email; ?>">
-                      <span class="help-block"><?php echo $email_err; ?></span>
+                    <div class="form-group <?php echo (!empty($sessions_controller->email_err)) ? 'has-error' : ''; ?>">
+                      <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." value="<?php echo $sessions_controller->email; ?>">
+                      <span class="help-block"><?php echo $sessions_controller->email_err; ?></span>
                     </div>
-                    <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group <?php echo (!empty($sessions_controller->password_err)) ? 'has-error' : ''; ?>">
                       <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                      <span class="help-block"><?php echo $password_err; ?></span>
+                      <span class="help-block"><?php echo $sessions_controller->password_err; ?></span>
                     </div>
                      <div class="form-group">
                       <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">

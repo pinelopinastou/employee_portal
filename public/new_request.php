@@ -1,8 +1,8 @@
 <?php require "../src/controllers/requests_controller.php";
-RequestsController::new();
+$requests_controller = new RequestsController();
+$requests_controller->new();
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   echo "BOO";
-   RequestsController::create();
+   $requests_controller->create();
  } ?>
 
 <!DOCTYPE html>
@@ -37,8 +37,8 @@ RequestsController::new();
                 </div>
                 <div class="form-group">
                   <label for="email"> Reason </label>
-                  <input type="text" class="form-control" name="reason" value="<?php echo $reason;?>">
-                  <span class="help-block"><?php echo $reason_err; ?></span>
+                  <input type="text" class="form-control" name="reason" value="<?php echo $requests_controller->reason;?>">
+                  <span class="help-block"><?php echo $requests_controller->reason_err; ?></span>
                 </div>
                 <div class="form-group">
                   <input type="submit" class="btn btn-primary btn-user btn-block" value="Submit">
