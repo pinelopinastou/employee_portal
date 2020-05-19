@@ -3,7 +3,7 @@ define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'employee_portal');
-define('PROJECT_ROOT','localhost/employee_portal/public')
+define('PROJECT_ROOT','localhost/employee_portal/public');
 
 $conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD,DB_NAME);
 if ($conn->connect_error) {

@@ -2,22 +2,27 @@
 require "../src/models/user.php";
 require "../src/services/mails_manager.php";
 require '../src/services/sessions_manager.php';
+require "../src/policies/requests_policy.php";
 
 class RequestsController{
 
   public $date_from, $date_to, $reason, $reason_err;
   function index(){
      SessionsManager::check_session();
+     self::verify_authorised_to_send_requests();
+
   }
 
 	function new(){
      SessionsManager::check_session();
+     self::verify_authorised_to_send_requests();
 	   $this->date_from = $this->date_to = $this->reason = "";
        $this->reason_err = "";
 	}
 
   function create(){
     SessionsManager::check_session();
+    self::verify_authorised_to_send_requests();
     $this->date_from = trim($_POST["date_from"]);
     $this->date_to = trim($_POST["date_to"]);
 
@@ -28,13 +33,13 @@ class RequestsController{
     }
 
     if(empty($reason_err)){
-      $request = Request::insert($this->date_from,$this->date_to,$this->reason,$_SESSION['id']);
-      $user = User::get($request['user_id']);
-      $administrator = User::get($request['administrator_id'])
-      if ($request){
-        $approve_link = PROJECT_ROOT."approve.php?".$request['id'];
-        $reject_link = PROJECT_ROOT."reject.php?".$request['id'];
-        MailsManager::send_request_for_approval_to($administrator['email'],$request['first_name']." ".$request["last_name"],$request['$date_from'],$request['$date_to'],$request['reason'],$approve_link,$reject_link);
+      $user = User::get($_SESSION['id']);
+      $request_id = Request::insert($this->date_from,$this->date_to,$this->reason,$user['ID'],$user['administrator_id']);
+      $administrator = User::get($user['administrator_id']);
+      if ($request_id){
+        $approve_link = PROJECT_ROOT."approve.php?".$request_id;
+        $reject_link = PROJECT_ROOT."reject.php?".$request_id;
+        MailsManager::send_request_for_approval_to($administrator['email'],$user['first_name']." ".$user["last_name"],$this->date_from,$this->date_to,$this->reason,$approve_link,$reject_link);
         header("location: home.php");
       }
       else{
@@ -45,6 +50,7 @@ class RequestsController{
 
 	function approve(){
       SessionsManager::check_session();
+      self::verify_authorised_to_receive_requests();
       $id = $_GET['request_id'];
       $success = Request::set_status($id,"approved");
       if ($success){
@@ -61,6 +67,7 @@ class RequestsController{
 
 	function reject(){
     SessionsManager::check_session();
+    self::verify_authorised_to_receive_requests();
     $id = $_GET['request_id'];
 	  $success = Request::set_status($id,"rejected");
       if ($success){
@@ -74,6 +81,24 @@ class RequestsController{
         echo "Something went wrong. Please try again later.";
       }
 	}
+
+  private function verify_authorised_to_send_requests(){
+    $auth = RequestsPolicy::authorize_to_send_requests(User::get($_SESSION['id'])['administrator_id']);
+    if (!$auth){
+      echo "You are not authorised to access this page, redirecting...";
+      header("location: user_management.php");
+      exit();
+    }
+    }
+
+  private function verify_authorised_to_receive_requests(){
+    $auth = RequestsPolicy::authorize_to_receive_requests(User::get($_SESSION['id'])['user_type']);
+    if (!$auth){
+      echo "You are not authorised to access this page, redirecting...";
+      header("location: home.php");
+      exit();
+    }
+    }
 
 }
 ?>

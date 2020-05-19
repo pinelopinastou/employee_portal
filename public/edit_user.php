@@ -52,8 +52,8 @@ $users_controller->edit();
                 <div class="form-group">
                   <label for="type"> User Type </label>
                    <select id="user_types" name="user_type" class="form-control" value="<?php echo $users_controller->user_type; ?>">
-                      <option value="admin">Admin</option>
-                      <option value="employee">Employee</option>
+                      <option <?php echo $users_controller->user_type=="admin"? "selected='selected'" : "" ;  ?>v value="admin">Admin</option>
+                      <option <?php echo $users_controller->user_type=="employee"? "selected='selected'" : "" ;  ?>value="employee">Employee</option>
                     </select> 
                 </div>
                 <div class="form-group">

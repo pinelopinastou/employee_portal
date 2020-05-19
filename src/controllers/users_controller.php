@@ -24,7 +24,7 @@ class UsersController{
 	  self::verify_authorised();
 	  self::set_and_validate_params();
       if(empty($this->email_err) && empty($this->password_err) && empty($this->confirm_password_err)){
-      $success = User::insert($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type);
+      $success = User::insert($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type,$_SESSION['id']);
       if ($success){
           header("location: user_management.php");
       	}
@@ -68,6 +68,7 @@ class UsersController{
 	  if (!$auth){
 	  	echo "You are not authorised to access this page, redirecting...";
 	  	header("location: home.php");
+	  	exit();
 	  }
    	}
 

@@ -39,28 +39,28 @@ class Request
       }
     }
 
-    static function insert($date_from,$date_to,$reason,$user_id){
+    static function insert($date_from,$date_to,$reason,$user_id,$administrator_id){
       global $conn;
-      $sql = "INSERT INTO requests (date_from, date_to,reason,user_id) VALUES (?, ?, ?, ?)";
+      $sql = "INSERT INTO requests (date_from, date_to,reason,user_id,administrator_id) VALUES (?, ?, ?, ?,?)";
          
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ssss", $param_date_from, $param_date_to,$param_reason, $param_user_id);
+            $stmt->bind_param("sssss", $param_date_from, $param_date_to,$param_reason, $param_user_id, $param_administrator_id);
             
             // Set parameters
             $param_date_from = $date_from;
             $param_date_to = $date_to;
             $param_reason = $reason;
             $param_user_id = $user_id;
+            $param_administrator_id = $administrator_id;
             
             // Attempt to execute the prepared statement
             if($stmt->execute() or die($conn->error)){
-              $record = get($conn->insert_id);
+              $record = $conn->insert_id;
             } else{
               $record = false;
             }
             $stmt->close();
-            $conn->close();
             return $record;
         }
 	}

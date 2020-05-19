@@ -70,17 +70,16 @@ class User
                 echo "Something went wrong. Please try again later.";
             }
             $stmt->close();
-            $conn->close();
             return $success;
         }
     }
 
-    static function insert($first_name, $last_name,$email, $password, $user_type){
+    static function insert($first_name, $last_name,$email, $password, $user_type, $administrator_id){
       global $conn;
-      $sql = "INSERT INTO users (first_name, last_name,email, password, type) VALUES (?, ?, ?, ?, ?)";
+      $sql = "INSERT INTO users (first_name, last_name,email, password, type, administrator_id) VALUES (?, ?, ?, ?, ?, ?)";
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sssss", $param_first_name, $param_last_name,$param_email, $param_password, $param_type);
+            $stmt->bind_param("ssssss", $param_first_name, $param_last_name,$param_email, $param_password, $param_type, $param_administrator_id);
             
             // Set parameters
             $param_first_name = $first_name;
@@ -88,6 +87,7 @@ class User
             $param_email = $email;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_type = $user_type;
+            $param_administrator_id = $administrator_id;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -98,7 +98,6 @@ class User
 
             // Close statement
             $stmt->close();
-            $conn->close();
             return $success;
 	  }
   }
