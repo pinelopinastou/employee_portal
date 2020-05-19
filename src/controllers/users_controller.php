@@ -1,18 +1,27 @@
 <?php
 		// Include config file
-require_once "../config/config.php";
 require "../src/models/user.php";
+require "../src/policies/users_policy.php";
+require "../src/services/sessions_manager.php";
 
 class UsersController{
 
 	public $first_name,$last_name,$email,$password,$confirm_password,$user_type,$first_name_err,$last_name_err,$email_err,$password_err,$confirm_password_err;
-    //to-do authorize index
+
+	function index(){
+	  SessionsManager::check_session();
+	  self::verify_authorised();
+	}
 
 	function new(){
-		$this->first_name = $this->last_name = $this->email = $this->password = $this->confirm_password_err = $this->first_name_err = $this->last_name_err = $this->email_err = $this->password_err = $this->confirm_password_err = "";
+	  SessionsManager::check_session();
+	  self::verify_authorised();
+	  $this->first_name = $this->last_name = $this->email = $this->password = $this->confirm_password_err = $this->first_name_err = $this->last_name_err = $this->email_err = $this->password_err = $this->confirm_password_err = "";
 	}
 
 	function create(){
+	  SessionsManager::check_session();
+	  self::verify_authorised();
 	  self::set_and_validate_params();
       if(empty($this->email_err) && empty($this->password_err) && empty($this->confirm_password_err)){
       $success = User::insert($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type);
@@ -27,6 +36,8 @@ class UsersController{
 	}
 
 	function edit(){
+		SessionsManager::check_session();
+		self::verify_authorised();
 		$user = User::get($_GET['id']);
 		$this->first_name = $user['first_name'];
 		$this->last_name = $user['last_name'];
@@ -38,6 +49,8 @@ class UsersController{
 	}
 
 	function update(){
+	  SessionsManager::check_session();
+	  self::verify_authorised();
 	  self::set_and_validate_params();
       if(empty($this->first_name_err) && empty($this->last_name_err) && empty($this->email_err) && empty($this->password_err) && empty($this->confirm_password_err)){
       	$success = User::update($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type,$_GET['id']);
@@ -49,6 +62,14 @@ class UsersController{
       	} 
 	}
    }
+
+   	private function verify_authorised(){
+   	  $auth = UsersPolicy::authorize(User::get($_SESSION['id'])['type']);
+	  if (!$auth){
+	  	echo "You are not authorised to access this page, redirecting...";
+	  	header("location: home.php");
+	  }
+   	}
 
 	private function set_and_validate_params(){
 		if(empty(trim($_POST["email"]))){

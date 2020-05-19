@@ -1,8 +1,4 @@
 <?php
-// Include config file
-require_once "../config/config.php";
-require_once "../src/models/user.php";
-
 class UserHelper{
 
 	static function user_list() {

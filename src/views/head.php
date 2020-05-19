@@ -16,8 +16,3 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
-<?php
-require '../src/services/sessions_manager.php';
-SessionsManager::check_session();
-?>

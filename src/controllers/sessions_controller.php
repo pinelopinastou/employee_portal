@@ -1,5 +1,5 @@
-<?php require_once "../src/models/user.php";
-require_once "../src/services/sessions_manager.php";
+<?php require "../src/models/user.php";
+require "../src/services/sessions_manager.php";
 
 class SessionsController{
 
@@ -15,7 +15,6 @@ class SessionsController{
 	  self::set_and_validate_params();
 
       if(empty($this->email_err) && empty($this->password_err)){
-        // Prepare a select statement
         $user = User::get_by_email($this->email);
 
         if (!$user){

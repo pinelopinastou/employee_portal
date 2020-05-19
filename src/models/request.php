@@ -35,7 +35,6 @@ class Request
       	  $succes = false;
       	}
        $stmt->close();
-       $conn->close();
        return $success;
       }
     }
@@ -56,13 +55,13 @@ class Request
             
             // Attempt to execute the prepared statement
             if($stmt->execute() or die($conn->error)){
-              $success = true;
+              $record = get($conn->insert_id);
             } else{
-              $success = false;
+              $record = false;
             }
             $stmt->close();
             $conn->close();
-            return $success;
+            return $record;
         }
 	}
   }

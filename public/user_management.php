@@ -1,4 +1,8 @@
-<?php require_once "../src/helpers/user_helper.php"?>
+<?php require "../src/helpers/user_helper.php";
+require "../src/controllers/users_controller.php";
+$users_controller = new UsersController();
+$users_controller->index();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once "../src/views/head.php"; ?>

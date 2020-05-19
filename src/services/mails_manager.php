@@ -23,6 +23,7 @@ class MailsManager{
     if (!$success) {
       echo $errorMessage = error_get_last()['message'];
     }
+
   }
 
 }

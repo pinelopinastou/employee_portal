@@ -1,4 +1,9 @@
-<?php require_once "../src/helpers/request_helper.php" ?>
+<?php require "../src/helpers/request_helper.php" ;
+require "../src/controllers/requests_controller.php";
+$requests_controller = new RequestsController();
+$requests_controller->index();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once "../src/views/head.php"; ?>
