@@ -40,7 +40,7 @@ class RequestsController{
         $approve_link = PROJECT_ROOT."approve.php?".$request_id;
         $reject_link = PROJECT_ROOT."reject.php?".$request_id;
         MailsManager::send_request_for_approval_to($administrator['email'],$user['first_name']." ".$user["last_name"],$this->date_from,$this->date_to,$this->reason,$approve_link,$reject_link);
-        header("location: home.php");
+        header("location: requests.php");
       }
       else{
         echo "Something went wrong. Please try again later.";
@@ -95,7 +95,7 @@ class RequestsController{
     $auth = RequestsPolicy::authorize_to_receive_requests(User::get($_SESSION['id'])['user_type']);
     if (!$auth){
       echo "You are not authorised to access this page, redirecting...";
-      header("location: home.php");
+      header("location: requests.php");
       exit();
     }
     }

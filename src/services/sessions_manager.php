@@ -11,7 +11,7 @@ class SessionsManager{
   static function check_if_session_is_active(){
   	session_start();
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-      header("location: home.php");
+      header("location: requests.php");
     }
   }
 

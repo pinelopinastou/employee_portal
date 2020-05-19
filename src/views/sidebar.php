@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="requests.php">
         <div class="sidebar-brand-text mx-3">Employee Portal </div>
       </a>
 
@@ -11,7 +11,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="home.php">
+        <a class="nav-link" href="requests.php">
           <i class="fas fa-clock"></i></i>
           <span>My requests</span></a>
       </li>
