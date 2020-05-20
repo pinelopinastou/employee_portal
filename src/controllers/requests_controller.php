@@ -10,7 +10,6 @@ class RequestsController{
   function index(){
      SessionsManager::check_session();
      self::verify_authorised_to_send_requests();
-
   }
 
 	function new(){
@@ -92,9 +91,9 @@ class RequestsController{
     }
 
   private function verify_authorised_to_receive_requests(){
-    $auth = RequestsPolicy::authorize_to_receive_requests(User::get($_SESSION['id'])['user_type']);
+    $auth = RequestsPolicy::authorize_to_receive_requests(User::get($_SESSION['id'])['type']);
     if (!$auth){
-      echo "You are not authorised to access this page, redirecting...";
+      echo "You are not authorised to access this page, redirecting hello...";
       header("location: requests.php");
       exit();
     }

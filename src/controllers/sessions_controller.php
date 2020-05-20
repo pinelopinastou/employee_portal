@@ -25,7 +25,12 @@ class SessionsController{
         }
         else {
           SessionsManager::create_session($user['ID'],$user['email'],$user['first_name'],$user['last_name']);
-          header("location: home.php");
+          if ($user['type']=="employee"){
+            header("location: requests.php");
+          }
+           else{
+           	header("location: user_management.php");
+           }
         }
        }
 	 }

@@ -6,8 +6,17 @@ class Request
     static function get_current_user_requests(){
       global $conn;
       $id = $_SESSION['id'];
-      $sql = "SELECT * FROM requests where user_id=$id";
-      $results = $conn->query($sql) or die($conn->error);
+      $sql = "SELECT * FROM requests where user_id=?";
+      if($stmt = $conn->prepare($sql)){
+          $stmt->bind_param("s",$param_id);
+          $param_id = $id;
+       if($stmt->execute()){
+          $results = $stmt->get_result();          
+        } 
+        else {
+          $results = false;
+        }
+      }
       return $results;
     }
 
@@ -15,8 +24,17 @@ class Request
     {
         global $conn; 
         $sql = "SELECT * FROM requests WHERE ID = $id";
-        $results = $conn->query($sql);
-        return $results->fetch_assoc();
+        if($stmt = $conn->prepare($sql)){
+          $stmt->bind_param("s",$param_id);
+          $param_id = $id;
+          if($stmt->execute()){
+             $results = $stmt->get_result();          
+           } 
+           else {
+             $results = false;
+           }
+         } 
+      return $results;
     }
 
     static function set_status($id,$status)

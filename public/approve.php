@@ -2,7 +2,7 @@
 
 require "../src/controllers/requests_controller.php";
 
-RequestsController::approve();
-// Define variables and initialize with values
+$requests_controller = new RequestsController();
+$requests_controller->approve();
 
 ?>

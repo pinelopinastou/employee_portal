@@ -2,6 +2,7 @@
 
 require "../src/controllers/requests_controller.php";
 
-RequestsController::reject();
+$requests_controller = new RequestsController();
+$requests_controller->reject();
 
 ?>

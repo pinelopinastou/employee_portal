@@ -6,25 +6,43 @@ class User
     static function get($id)
     {
         global $conn; 
-        $sql = "SELECT * FROM users WHERE ID = $id";
-        $results = $conn->query($sql);
+        $sql = "SELECT * FROM users WHERE ID = ?";
+        if($stmt = $conn->prepare($sql)){
+          $stmt->bind_param("s",$param_id);
+          $param_id = $id;
+       if($stmt->execute()){
+          $results = $stmt->get_result();          
+        } 
+        else {
+          $results = false;
+        }
+      }
         return $results->fetch_assoc();
     }
 
     static function get_by_email($email)
     {
         global $conn; 
-        $sql = "SELECT * FROM users WHERE email = '$email'";
-        $results = $conn->query($sql);
-        return $results->fetch_assoc() ;
+        $sql = "SELECT * FROM users WHERE email = ?";
+        if($stmt = $conn->prepare($sql)){
+          $stmt->bind_param("s",$param_email);
+          $param_email = $email;
+       if($stmt->execute()){
+          $results = $stmt->get_result();          
+        } 
+        else {
+          $results = false;
+        }
+      }
+      return $results->fetch_assoc();
     }
 
     static function get_all_users()
     {
-        global $conn; 
-        $sql = "SELECT * FROM users";
-        $results = $conn->query($sql);
-        return $results;
+      global $conn; 
+      $sql = "SELECT * FROM users";
+      $results = $conn->query($sql);
+      return $results;
     }
 
     static function get_num_of_users_with_email($email){
