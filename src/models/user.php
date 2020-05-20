@@ -17,7 +17,7 @@ class User
           $results = false;
         }
       }
-        return $results->fetch_assoc();
+      return $results->fetch_assoc();
     }
 
     static function get_by_email($email)

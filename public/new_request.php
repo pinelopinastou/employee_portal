@@ -30,10 +30,12 @@ $requests_controller->new();
                 <div class="form-group">
                   <label for="email"> Date from </label>
                   <input type="date" id="date_from" name="date_from">
+                  <span class="help-block"><?php echo $requests_controller->date_from_err; ?></span>
                 </div>
                 <div class="form-group">
                   <label for="email"> Date to </label>
                   <input type="date" id="date_to" name="date_to">
+                  <span class="help-block"><?php echo $requests_controller->date_to_err; ?></span>
                 </div>
                 <div class="form-group">
                   <label for="email"> Reason </label>

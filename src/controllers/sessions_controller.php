@@ -25,6 +25,7 @@ class SessionsController{
         }
         else {
           SessionsManager::create_session($user['ID'],$user['email'],$user['first_name'],$user['last_name']);
+          $_SESSION["flash"] = ["type" => "success", "message" => "You have successfully logged in!"];
           if ($user['type']=="employee"){
             header("location: requests.php");
           }
@@ -41,14 +42,12 @@ class SessionsController{
 	}
 
 	private function set_and_validate_params(){
-      // Check if email is empty
 	    if(empty(trim($_POST["email"]))){
 	        $this->email_err = "Please enter email.";
 	    } else{
 	        $this->email = trim($_POST["email"]);
 	    }
 	    
-	    // Check if password is empty
 	    if(empty(trim($_POST["password"]))){
 	        $this->password_err = "Please enter your password.";
 	    } else{

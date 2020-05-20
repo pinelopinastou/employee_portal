@@ -26,6 +26,7 @@ class UsersController{
       if(empty($this->email_err) && empty($this->password_err) && empty($this->confirm_password_err)){
       $success = User::insert($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type,$_SESSION['id']);
       if ($success){
+      	  $_SESSION["flash"] = ["type" => "success", "message" => "User has been successfully created!"];
           header("location: user_management.php");
       	}
       	else {
@@ -55,6 +56,7 @@ class UsersController{
       if(empty($this->first_name_err) && empty($this->last_name_err) && empty($this->email_err) && empty($this->password_err) && empty($this->confirm_password_err)){
       	$success = User::update($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type,$_GET['id']);
       	if ($success){
+          $_SESSION["flash"] = ["type" => "success", "message" => "User has been successfully updated!"];
           header("location: user_management.php");
       	}
       	else {
@@ -66,8 +68,8 @@ class UsersController{
    	private function verify_authorised(){
    	  $auth = UsersPolicy::authorize(User::get($_SESSION['id'])['type']);
 	  if (!$auth){
-	  	echo "You are not authorised to access this page, redirecting...";
-	  	header("location: home.php");
+	  	$_SESSION["flash"] = ["type" => "failure", "message" => "You are not authorised to access this page."];
+	  	header("location: requests.php");
 	  	exit();
 	  }
    	}
@@ -76,10 +78,9 @@ class UsersController{
 		if(empty(trim($_POST["email"]))){
             $this->email_err = "Please enter a email.";
 	    } else{
-	        // Prepare a select statement
 	        $result = User::get_num_of_users_with_email($_POST['email']);
 	        if ($result==="error"){
-	          echo "Something went wrong, please try again later - email.";
+	          echo "Something went wrong, please try again later.";
 	        }
 	        elseif ($result >= 1 && $this->email!=$_POST['email']){
 	          $this->email_err = "This email is already taken.";

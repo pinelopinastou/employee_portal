@@ -23,7 +23,7 @@ class Request
     static function get($id)
     {
         global $conn; 
-        $sql = "SELECT * FROM requests WHERE ID = $id";
+        $sql = "SELECT * FROM requests WHERE ID = ?";
         if($stmt = $conn->prepare($sql)){
           $stmt->bind_param("s",$param_id);
           $param_id = $id;
@@ -34,7 +34,7 @@ class Request
              $results = false;
            }
          } 
-      return $results;
+      return $results->fetch_assoc();
     }
 
     static function set_status($id,$status)

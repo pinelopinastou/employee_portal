@@ -16,3 +16,9 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<?php
+if (isset($_SESSION["flash"]))
+{
+    vprintf("<p class='flash %s'>%s</p>", $_SESSION["flash"]);
+    unset($_SESSION["flash"]);
+}?>
