@@ -7,7 +7,7 @@ class Request
     static function get_current_user_requests(){
       global $conn;
       $id = $_SESSION['id'];
-      $sql = "SELECT * FROM requests where user_id=?";
+      $sql = "SELECT * FROM requests where user_id=? ORDER BY created_at DESC";
       if($stmt = $conn->prepare($sql)){
           $stmt->bind_param("s",$param_id);
           $param_id = $id;
