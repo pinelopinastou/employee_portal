@@ -1,5 +1,5 @@
 # employee_portal
-An mini HRIS app
+A mini HRIS app
 
 # Set up locally
 
