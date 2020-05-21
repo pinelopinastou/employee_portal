@@ -39,13 +39,21 @@ class User
       return $results->fetch_assoc();
     }
 
-    //returns records of all users
-    static function get_all_users()
+    //returns records of all users belonging to an admin
+    static function get_all_users_by_admin_id($administrator_id)
     {
       global $conn; 
-      $sql = "SELECT * FROM users";
-      $results = $conn->query($sql);
-      return $results;
+      $sql = "SELECT * FROM users WHERE administrator_id = ?";
+      if($stmt = $conn->prepare($sql)){
+            $stmt->bind_param("s", $param_administrator_id);
+            $param_administrator_id = $administrator_id;
+            if($stmt->execute()){
+                $results = $stmt->get_result(); }
+            else{
+                $results = false;
+            }         
+        }
+       return $results;
     }
 
     //return number of user records with the same email

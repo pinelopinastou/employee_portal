@@ -46,7 +46,7 @@ $users_controller->index();
                       <th>Type</th>
                       <th>Edit</th>
                     </tr>
-                    <?php UserHelper::user_list()?>
+                    <?php UserHelper::user_list($_SESSION['id'])?>
                   </thead>
                   <tfoot>
                     

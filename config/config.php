@@ -3,7 +3,7 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'employee_portal');
+define('DB_NAME', 'test_employee_portal');
 //set the project's root path
 define('PROJECT_ROOT','localhost/employee_portal/public');
 
