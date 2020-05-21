@@ -39,12 +39,11 @@ class RequestsController
             $administrator = User::get($user['administrator_id']);
             if ($request_id)
             {
-                $approve_link = PROJECT_ROOT . "/approve.php?" . $request_id;
-                $reject_link = PROJECT_ROOT . "/reject.php?" . $request_id;
+                $approve_link = PROJECT_ROOT . "/approve.php?request_id=" . $request_id;
+                $reject_link = PROJECT_ROOT . "/reject.php?request_id=" . $request_id;
                 MailsManager::send_request_for_approval_to($administrator['email'], $user['first_name'] . " " . $user["last_name"], $this->date_from, $this->date_to, $this->reason, $approve_link, $reject_link);
                 $_SESSION["flash"] = ["type" => "success", "message" => "The request has been created successfully."];
-                echo $approve_link;
-                //header("location: requests.php");
+                header("location: requests.php");
             }
             else
             {

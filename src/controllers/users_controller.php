@@ -82,7 +82,7 @@ class UsersController{
 
    	//verify user is administrator and has access to this user
    	private function verify_authorised_edit($admin_id){
-   	  $auth = UsersPolicy::authorize(User::get($_SESSION['id'])['type'],);
+   	  $auth = UsersPolicy::authorize_edit(User::get($_SESSION['id'])['type'],$admin_id);
 	  if (!$auth){
 	  	$_SESSION["flash"] = ["type" => "failure", "message" => "You are not authorised to access this page."];
 	  	header("location: requests.php");
