@@ -41,8 +41,8 @@ class UsersController{
 	//called in edit_user.php
 	function edit(){
 		SessionsManager::check_session();
-		self::verify_authorised();
 		$user = User::get($_GET['id']);
+		self::verify_authorised_edit($user['administrator_id']);
 		$this->first_name = $user['first_name'];
 		$this->last_name = $user['last_name'];
 		$this->email = $user['email'];
@@ -55,7 +55,8 @@ class UsersController{
 	//called in edit_user.php on POST action
 	function update(){
 	  SessionsManager::check_session();
-	  self::verify_authorised();
+	  $user = User::get($_GET['id']);
+	  self::verify_authorised_edit($user['administrator_id']);
 	  self::set_and_validate_params();
       if(empty($this->first_name_err) && empty($this->last_name_err) && empty($this->email_err) && empty($this->password_err) && empty($this->confirm_password_err)){
       	$success = User::update($this->first_name,$this->last_name,$this->email,$this->password,$this->user_type,$_GET['id']);
@@ -66,12 +67,22 @@ class UsersController{
       	else {
           echo "Something went wrong, please try again later.";
       	} 
-	}
+	 }
    }
 
    //verify user is administrator
    	private function verify_authorised(){
    	  $auth = UsersPolicy::authorize(User::get($_SESSION['id'])['type']);
+	  if (!$auth){
+	  	$_SESSION["flash"] = ["type" => "failure", "message" => "You are not authorised to access this page."];
+	  	header("location: requests.php");
+	  	exit();
+	  }
+   	}
+
+   	//verify user is administrator and has access to this user
+   	private function verify_authorised_edit($admin_id){
+   	  $auth = UsersPolicy::authorize(User::get($_SESSION['id'])['type'],);
 	  if (!$auth){
 	  	$_SESSION["flash"] = ["type" => "failure", "message" => "You are not authorised to access this page."];
 	  	header("location: requests.php");
