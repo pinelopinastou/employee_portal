@@ -16,7 +16,9 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+
 <?php
+//flash alert if it has been set
 if (isset($_SESSION["flash"]))
 {
     vprintf("<p class='flash %s'>%s</p>", $_SESSION["flash"]);

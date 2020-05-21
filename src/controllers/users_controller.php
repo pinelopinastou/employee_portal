@@ -1,5 +1,4 @@
 <?php
-		// Include config file
 require "../src/models/user.php";
 require "../src/policies/users_policy.php";
 require "../src/services/sessions_manager.php";
@@ -8,17 +7,20 @@ class UsersController{
 
 	public $first_name,$last_name,$email,$password,$confirm_password,$user_type,$first_name_err,$last_name_err,$email_err,$password_err,$confirm_password_err;
 
+	//called in user_management.php
 	function index(){
 	  SessionsManager::check_session();
 	  self::verify_authorised();
 	}
 
+	//called in new_user.php
 	function new(){
 	  SessionsManager::check_session();
 	  self::verify_authorised();
 	  $this->first_name = $this->last_name = $this->email = $this->password = $this->confirm_password_err = $this->first_name_err = $this->last_name_err = $this->email_err = $this->password_err = $this->confirm_password_err = "";
 	}
 
+	//called in new_user.php on POST action
 	function create(){
 	  SessionsManager::check_session();
 	  self::verify_authorised();
@@ -36,6 +38,7 @@ class UsersController{
       }
 	}
 
+	//called in edit_user.php
 	function edit(){
 		SessionsManager::check_session();
 		self::verify_authorised();
@@ -49,6 +52,7 @@ class UsersController{
 		$this->first_name_err = $this->last_name_err = $this->email_err = $this->password_err = $this->confirm_password_err = "";
 	}
 
+	//called in edit_user.php on POST action
 	function update(){
 	  SessionsManager::check_session();
 	  self::verify_authorised();
@@ -65,6 +69,7 @@ class UsersController{
 	}
    }
 
+   //verify user is administrator
    	private function verify_authorised(){
    	  $auth = UsersPolicy::authorize(User::get($_SESSION['id'])['type']);
 	  if (!$auth){
@@ -74,6 +79,7 @@ class UsersController{
 	  }
    	}
 
+   	//set and validate post params
 	private function set_and_validate_params(){
 		if(empty(trim($_POST["email"]))){
             $this->email_err = "Please enter a email.";

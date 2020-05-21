@@ -2,7 +2,8 @@
 require_once "../config/config.php";
 
 class Request
-{
+{   
+    //returns all requests records of active user
     static function get_current_user_requests(){
       global $conn;
       $id = $_SESSION['id'];
@@ -20,6 +21,7 @@ class Request
       return $results;
     }
 
+    //returns association of request record
     static function get($id)
     {
         global $conn; 
@@ -37,10 +39,11 @@ class Request
       return $results->fetch_assoc();
     }
 
+    //change the status of request record. returns true or false based on success.
     static function set_status($id,$status)
     {
-    	global $conn;
-    	$sql = "UPDATE requests SET status=? WHERE id=?";
+      global $conn;
+      $sql = "UPDATE requests SET status=? WHERE id=?";
  
         if($stmt = $conn->prepare($sql)){
           $stmt->bind_param("ss", $param_status, $param_id);
@@ -50,13 +53,15 @@ class Request
           $success = true;          
         } 
         else {
-      	  $succes = false;
-      	}
+          $succes = false;
+        }
        $stmt->close();
        return $success;
       }
     }
 
+
+    //insert new request. if successfull, returns the id of the request, if not it returns false.
     static function insert($date_from,$date_to,$reason,$user_id,$administrator_id){
       global $conn;
       $sql = "INSERT INTO requests (date_from, date_to,reason,user_id,administrator_id) VALUES (?, ?, ?, ?,?)";
@@ -81,5 +86,5 @@ class Request
             $stmt->close();
             return $record;
         }
-	}
+  }
   }

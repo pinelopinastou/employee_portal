@@ -1,6 +1,7 @@
 <?php
 class UserHelper{
 
+	//prints tables rows with all users
 	static function user_list() {
 	  $user_records = User::get_all_users();
 	  while($row =$user_records->fetch_array()){ 

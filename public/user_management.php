@@ -1,7 +1,9 @@
 <?php require "../src/helpers/user_helper.php";
 require "../src/controllers/users_controller.php";
+
 $users_controller = new UsersController();
 $users_controller->index();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

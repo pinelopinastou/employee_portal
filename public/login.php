@@ -1,9 +1,11 @@
 <?php require "../src/controllers/sessions_controller.php";
+
 $sessions_controller = new SessionsController();
 $sessions_controller->new();
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   $sessions_controller->create();
- } ?>
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $sessions_controller->create();
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">

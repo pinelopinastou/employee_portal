@@ -1,6 +1,7 @@
 <?php
 class SessionsManager{
   
+  //runs in each page, checks if user has signed in
   static function check_session(){
   	session_start();
     if(!isset($_SESSION["loggedin"])) {
@@ -8,6 +9,7 @@ class SessionsManager{
     }
   }
 
+  //runs in login.php, ig user has signed in they are redirected to the requests page
   static function check_if_session_is_active(){
   	session_start();
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -15,6 +17,7 @@ class SessionsManager{
     }
   }
 
+  //sign in user and assign session variables
   static function create_session($id,$email,$first_name,$last_name){
   	session_start();  
     // Store data in session variables
@@ -24,6 +27,7 @@ class SessionsManager{
     $_SESSION["name"] = $first_name." ".$last_name;
   }
 
+  //runs in logout.php, unsets and destroys session to logout user
   static function destroy_session(){
   	session_start();
     session_unset();

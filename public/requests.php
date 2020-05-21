@@ -1,7 +1,9 @@
 <?php require "../src/helpers/request_helper.php" ;
 require "../src/controllers/requests_controller.php";
+
 $requests_controller = new RequestsController();
 $requests_controller->index();
+
 ?>
 
 <!DOCTYPE html>

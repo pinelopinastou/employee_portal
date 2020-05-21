@@ -1,9 +1,11 @@
 <?php require "../src/controllers/requests_controller.php";
+
 $requests_controller = new RequestsController();
 $requests_controller->new();
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   $requests_controller->create();
- } ?>
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $requests_controller->create();
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">

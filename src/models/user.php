@@ -2,7 +2,8 @@
 require_once "../config/config.php";
 
 class User
-{
+{   
+    //returns association of user record
     static function get($id)
     {
         global $conn; 
@@ -20,6 +21,7 @@ class User
       return $results->fetch_assoc();
     }
 
+    //returns association of user record
     static function get_by_email($email)
     {
         global $conn; 
@@ -37,6 +39,7 @@ class User
       return $results->fetch_assoc();
     }
 
+    //returns records of all users
     static function get_all_users()
     {
       global $conn; 
@@ -45,6 +48,7 @@ class User
       return $results;
     }
 
+    //return number of user records with the same email
     static function get_num_of_users_with_email($email){
       global $conn;
       $sql = "SELECT id FROM users WHERE email = ?";
@@ -61,15 +65,14 @@ class User
        return $result;
       }
 
+    //update user record. returns true or false based on success
     static function update($first_name,$last_name,$email,$password,$user_type)
     {   global $conn;
-    	  $sql = "UPDATE users SET first_name=?, last_name=?,email=?, password=?, type=? WHERE id=?";
+          $sql = "UPDATE users SET first_name=?, last_name=?,email=?, password=?, type=? WHERE id=?";
          
         if($stmt = $conn->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
             $stmt->bind_param("ssssss", $param_first_name, $param_last_name,$param_email, $param_password, $param_type,$param_id);
             
-            // Set parameters
             $param_first_name = $first_name;
             $param_last_name = $last_name;
             $param_email = $email;
@@ -77,10 +80,10 @@ class User
               $param_password = User::get($_GET['id'])['password'];
             }
             else{
-              $param_password = password_hash($password, PASSWORD_DEFAULT);} // Creates a password hash
+              $param_password = password_hash($password, PASSWORD_DEFAULT);} 
             $param_type = $user_type;
             $param_id = $_GET['id'];
-            // Attempt to execute the prepared statement
+
             if($stmt->execute()){
                 $success = true;
             } else{
@@ -92,14 +95,13 @@ class User
         }
     }
 
+    //insert user record. returns true or false based on success
     static function insert($first_name, $last_name,$email, $password, $user_type, $administrator_id){
       global $conn;
       $sql = "INSERT INTO users (first_name, last_name,email, password, type, administrator_id) VALUES (?, ?, ?, ?, ?, ?)";
         if($stmt = $conn->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
             $stmt->bind_param("ssssss", $param_first_name, $param_last_name,$param_email, $param_password, $param_type, $param_administrator_id);
             
-            // Set parameters
             $param_first_name = $first_name;
             $param_last_name = $last_name;
             $param_email = $email;
@@ -107,16 +109,14 @@ class User
             $param_type = $user_type;
             $param_administrator_id = $administrator_id;
             
-            // Attempt to execute the prepared statement
             if($stmt->execute()){
                 $success = true;
             } else{
                $success = false;
             }
 
-            // Close statement
             $stmt->close();
             return $success;
-	  }
+      }
   }
 }

@@ -1,9 +1,11 @@
 <?php require "../src/controllers/users_controller.php";
+
 $users_controller = new UsersController();
 $users_controller->edit();
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   $users_controller->update();
- } ?>
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $users_controller->update();
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">

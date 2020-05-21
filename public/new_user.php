@@ -1,9 +1,11 @@
 <?php require "../src/controllers/users_controller.php";
+
 $users_controller = new UsersController();
 $users_controller->new();
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   $users_controller->create();
- } ?>
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $users_controller->create();
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,6 +1,7 @@
 <?php
 class RequestHelper{
 
+  //prints table rows with the active user's requests
   static function requests_list() {
     $user_requests = Request::get_current_user_requests();
      while($row = $user_requests->fetch_array()){ 
